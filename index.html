@@ -75,6 +75,13 @@
         .nhs-button:hover { 
             background-color: #00662f; 
         }
+
+        /* New button color for stopping actions (NHS Dark Red/Crimson) */
+        .nhs-button-secondary { background-color: #76201f; box-shadow: 0 3px 0 #4a1413; }
+        .nhs-button-secondary:hover { background-color: #5c1817; }
+        
+        /* Layout for the timestamp clock-in box */
+        .time-display { font-size: 18px; color: #4c6272; font-weight: bold; margin-top: 15px; text-align: center; background: #f0f4f5; padding: 10px; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -86,6 +93,18 @@
 
     <main class="main-container">
         <div class="wellbeing-card"> 
+
+            <!-- FEATURE 1: SHIFT TRACKER CARD -->
+        <div class="wellbeing-card">
+            <h2>Shift Tracker</h2>
+            <p style="color: #4c6272;">Log your shift clock-in times to maintain accurate records of your working hours.</p>
+            
+            <button class="nhs-button" id="startBtn" onclick="startShift()">Start Shift</button>
+            <button class="nhs-button nhs-button-secondary" id="endBtn" onclick="endShift()">End Shift</button>
+            
+            <div class="time-display" id="shiftLog">Shift Status: Not Started</div>
+        </div>
+
             <h2>Hydration Tracker</h2>
             <p style="color: #4c6272;">Staying hydrated during long shifts is essential for clinical focus and fatigue management.</p>
             
@@ -97,5 +116,20 @@
         </div>
     </main>
 
+
+  <!-- JAVASCRIPT: The Brain of the Application -->
+    <script>
+        function startShift() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('shiftLog').innerText = "Shift Started at: " + timeString;
+        }
+
+        function endShift() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('shiftLog').innerText = "Shift Ended at: " + timeString;
+        }
+    </script>  
 </body>
 </html>
