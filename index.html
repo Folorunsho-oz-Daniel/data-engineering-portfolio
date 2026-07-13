@@ -105,6 +105,17 @@
             <div class="time-display" id="shiftLog">Shift Status: Not Started</div>
         </div>
 
+        <!-- FEATURE 3: BREAK COUNTDOWN CARD -->
+        <div class="wellbeing-card">
+            <h2>15-Minute Break Timer</h2>
+            <p style="color: #4c6272;">Take a step back. Healthcare roles require rest to stay sharp and safe.</p>
+            
+            <div class="counter-box" style="font-size: 36px;" id="breakDisplay">15:00</div>
+            
+            <button class="nhs-button" onclick="startBreak()">Start Break</button>
+            <button class="nhs-button nhs-button-secondary" onclick="resetBreak()">Reset Timer</button>
+        </div>
+
             <h2>Hydration Tracker</h2>
             <p style="color: #4c6272;">Staying hydrated during long shifts is essential for clinical focus and fatigue management.</p>
             
@@ -129,6 +140,39 @@
             const now = new Date();
             const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             document.getElementById('shiftLog').innerText = "Shift Ended at: " + timeString;
+        }
+
+        // Break Timer Variables
+        let breakTimer;
+        let timeLeft = 15 * 60; // 15 minutes in seconds
+
+        function startBreak() {
+            // Clear any running timers first so they don't double up
+            clearInterval(breakTimer);
+            
+            breakTimer = setInterval(function() {
+                if (timeLeft <= 0) {
+                    clearInterval(breakTimer);
+                    document.getElementById('breakDisplay').innerText = "Break Over!";
+                    document.getElementById('breakDisplay').style.color = "#76201f"; // Turn text red
+                } else {
+                    timeLeft--;
+                    let minutes = Math.floor(timeLeft / 60);
+                    let seconds = timeLeft % 60;
+                    
+                    // Format seconds nicely so 9 seconds shows as "09"
+                    if (seconds < 10) seconds = "09"; 
+                    
+                    document.getElementById('breakDisplay').innerText = minutes + ":" + seconds;
+                }
+            }, 1000); // Ticks once every 1000ms (1 second)
+        }
+
+        function resetBreak() {
+            clearInterval(breakTimer);
+            timeLeft = 15 * 60;
+            document.getElementById('breakDisplay').innerText = "15:00";
+            document.getElementById('breakDisplay').style.color = "#005EB8"; // Reset back to NHS blue
         }
     </script>  
 </body>
