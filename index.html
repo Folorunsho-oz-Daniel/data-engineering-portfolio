@@ -1,8 +1,101 @@
-TBC
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHS Staff Wellbeing Dashboard</title>
+    <style>
+        /* 1. THE FOUNDATION: Setting up global colors and fonts */
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f0f4f5; /* Official NHS light grey background */
+            margin: 0; 
+            padding: 0; 
+        }
 
+        /* 2. THE HEADER: The iconic NHS Blue top bar */
+        .nhs-header {
+            background-color: #005EB8; /* Authentic NHS Blue */
+            color: #FFFFFF;
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nhs-header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
 
-    
-        NHS Staff Wellbeing
-        Track your hydration during your shift
-        💧 0 Glasses
-        Log a Glass of Water
+        /* 3. THE CONTAINER: Centering our content neatly */
+        .main-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* 4. THE CARD: Making a clean, modern white box */
+        .wellbeing-card { 
+            background: #FFFFFF; 
+            padding: 30px; 
+            border-radius: 4px; 
+            border-bottom: 4px solid #005EB8; /* Accent line on the bottom */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
+        }
+
+        .wellbeing-card h2 {
+            color: #212b32; /* NHS dark charcoal text color */
+            margin-top: 0;
+        }
+
+        /* 5. THE COUNTER: Making the data stand out */
+        .counter-box { 
+            background-color: #f0f4f5;
+            font-size: 28px; 
+            text-align: center; 
+            margin: 25px 0; 
+            padding: 20px;
+            border-radius: 4px;
+            font-weight: bold; 
+            color: #005EB8; 
+        }
+
+        /* 6. THE BUTTON: Making it look like an official interactive element */
+        .nhs-button { 
+            background-color: #007f3b; /* Official NHS green for "positive actions" */
+            color: #FFFFFF; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            width: 100%; 
+            font-size: 18px; 
+            font-weight: bold;
+            box-shadow: 0 3px 0 #004d23; /* Button depth effect */
+        }
+        .nhs-button:hover { 
+            background-color: #00662f; 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- This is the top banner you see on all NHS sites -->
+    <header class="nhs-header">
+        <h1>NHS Staff Wellbeing</h1>
+    </header>
+
+    <main class="main-container">
+        <div class="wellbeing-card"> 
+            <h2>Hydration Tracker</h2>
+            <p style="color: #4c6272;">Staying hydrated during long shifts is essential for clinical focus and fatigue management.</p>
+            
+            <div class="counter-box">💧 <span id="waterCount">0</span> Glasses Logged</div>
+            
+            <button class="nhs-button" onclick="document.getElementById('waterCount').innerText = parseInt(document.getElementById('waterCount').innerText) + 1">
+                Log a Glass of Water
+            </button>
+        </div>
+    </main>
+
+</body>
+</html>
