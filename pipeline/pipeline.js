@@ -11,3 +11,68 @@ const rawLabDump = [
 ];
 
 console.log("🚀 Extraction Layer: Successfully ingested " + rawLabDump.length + " raw records.");
+
+// ==========================================
+// STAGE 2: DATA TRANSFORMATION & ENRICHMENT
+// ==========================================
+
+// 1. Data Schema / Reference Ranges (Our Master Truth Table)
+const medicalReferenceRanges = {
+    "HEMOGLOBIN":        { min: 12.0, max: 17.5, type: "float" },
+    "PLATELETS":         { min: 150.0, max: 400.0, type: "int" },
+    "WHITE_BLOOD_CELLS": { min: 4.0, max: 11.0, type: "float" }
+};
+
+// 2. The Transformation Function
+function transformLabData(rawDataArray) {
+    console.log("⚙️ Transform Layer: Processing raw pipeline batch...");
+    const cleanedAndEnrichedData = [];
+
+    rawDataArray.forEach((record) => {
+        // A. Data Cleaning: Standardize marker strings to uniform UPPERCASE
+        const standardizedMarker = record.marker.toUpperCase().trim();
+
+        // B. Data Quality Validation: Drop corrupted records missing results
+        if (record.resultValue === null || record.resultValue === undefined) {
+            console.warn(`⚠️ Data Quality Alert: Dropped corrupted record for Patient ${record.patientId} (Reason: Missing resultValue)`);
+            return; // Skip this record completely (Filter/Drop step)
+        }
+
+        // C. Data Type Conversion: Parse strings into real computational numbers
+        const numericResult = parseFloat(record.resultValue);
+
+        // D. Data Enrichment: Cross-reference with our reference range schema
+        const range = medicalReferenceRanges[standardizedMarker];
+        let interpretation = "NORMAL";
+
+        if (range) {
+            if (numericResult < range.min) {
+                interpretation = "LOW";
+            } else if (numericResult > range.max) {
+                interpretation = "HIGH";
+            }
+        } else {
+            interpretation = "UNKNOWN_MARKER";
+        }
+
+        // E. Schema Mapping: Push our structured, cleaned, and flag-enriched data forward
+        cleanedAndEnrichedData.push({
+            patient_id: record.patientId,
+            test_date: record.testDate,
+            biomarker: standardizedMarker,
+            observed_value: numericResult,
+            measurement_unit: record.unit,
+            range_min: range ? range.min : null,
+            range_max: range ? range.max : null,
+            status_flag: interpretation
+        });
+    });
+
+    return cleanedAndEnrichedData;
+}
+
+// Execute the Transformation Step
+const cleanWarehouseData = transformLabData(rawLabDump);
+
+console.log("📊 STAGE 3: LOAD LAYER (Structured Data Preview):");
+console.table(cleanWarehouseData);
