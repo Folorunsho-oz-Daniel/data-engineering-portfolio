@@ -27,18 +27,33 @@
         }
 
         /* 3. THE CONTAINER: Centering our content neatly */
-        .main-container {
-            max-width: 1000px; 
+        /* Grid container setup for 2 columns */
+        .main-container { 
+            max-width: 1100px; 
             margin: 40px auto; 
             padding: 0 20px; 
             display: grid; 
-            grid-template-columns: 1fr 350px; 
+            grid-template-columns: 1fr 1fr; /* Split into two equal halves */
             gap: 20px; 
-
         }
+
+        /* Makes the Hydration box stretch across both columns at the bottom */
+        .hydration-wrapper {
+            grid-column: 1 / span 2;
+        }
+
+        /* Helper group to cleanly stack the timers vertically inside the right column */
+        .timers-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Mobile Responsive View (changes back to single column layout on phone screens) */
         @media (max-width: 768px) {
-    .main-container { grid-template-columns: 1fr; }
-}
+            .main-container { grid-template-columns: 1fr; }
+            .hydration-wrapper { grid-column: 1; }
+        }
 
         /* 4. THE CARD: Making a clean, modern white box */
         .wellbeing-card { 
@@ -98,34 +113,56 @@
         <h1>NHS Staff Wellbeing</h1>
     </header>
 
-    <main class="main-container">
-        <div class="wellbeing-card"> 
 
-
-            <!-- NEW FEATURE: SIDEBAR COLUMN (Left or Right side) -->
+<main class="main-container">
+        
+        <!-- LEFT COLUMN: STAFF HUB & IMAGE -->
         <div class="wellbeing-sidebar">
             <div class="wellbeing-card">
                 <h3>Staff Support Hub</h3>
                 <p style="color: #4c6272; font-size: 14px;">
                     Remember to take micro-breaks, look out for your colleagues, and utilize the trust's psychological support helpline if needed. You are doing an incredible job.
                 </p>
-                
-                <!-- This is your image placeholder -->
                 <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=500&q=80" 
                      alt="NHS Support" 
                      style="width: 100%; border-radius: 4px; margin-top: 10px;">
             </div>
         </div>
+
+        <!-- RIGHT COLUMN GROUP: SHIFT & BREAK TIMERS -->
+        <div class="timers-group">
             <!-- FEATURE 1: SHIFT TRACKER CARD -->
-        <div class="wellbeing-card">
-            <h2>Shift Tracker</h2>
-            <p style="color: #4c6272;">Log your shift clock-in times to maintain accurate records of your working hours.</p>
-            
-            <button class="nhs-button" id="startBtn" onclick="startShift()">Start Shift</button>
-            <button class="nhs-button nhs-button-secondary" id="endBtn" onclick="endShift()">End Shift</button>
-            
-            <div class="time-display" id="shiftLog">Shift Status: Not Started</div>
+            <div class="wellbeing-card">
+                <h2>Shift Tracker</h2>
+                <p style="color: #4c6272;">Log your shift clock-in times to maintain accurate records of your working hours.</p>
+                <button class="nhs-button" id="startBtn" onclick="startShift()">Start Shift</button>
+                <button class="nhs-button nhs-button-secondary" id="endBtn" onclick="endShift()">End Shift</button>
+                <div class="time-display" id="shiftLog">Shift Status: Not Started</div>
+            </div>
+
+            <!-- FEATURE 3: BREAK COUNTDOWN CARD -->
+            <div class="wellbeing-card">
+                <h2>15-Minute Break Timer</h2>
+                <p style="color: #4c6272;">Take a step back. Healthcare roles require rest to stay sharp and safe.</p>
+                <div class="counter-box" style="font-size: 36px;" id="breakDisplay">15:00</div>
+                <button class="nhs-button" onclick="startBreak()">Start Break</button>
+                <button class="nhs-button nhs-button-secondary" onclick="resetBreak()">Reset Timer</button>
+            </div>
         </div>
+
+        <!-- BOTTOM ROW: HYDRATION TRACKER (SPANS ACROSS THE BOTTOM) -->
+        <div class="hydration-wrapper">
+            <div class="wellbeing-card"> 
+                <h2>Hydration Tracker</h2>
+                <p style="color: #4c6272;">Staying hydrated during long shifts is essential for clinical focus and fatigue management.</p>
+                <div class="counter-box">💧 <span id="waterCount">0</span> Glasses Logged</div>
+                <button class="nhs-button" onclick="document.getElementById('waterCount').innerText = parseInt(document.getElementById('waterCount').innerText) + 1">
+                    Log a Glass of Water
+                </button>
+            </div>
+        </div>
+
+    </main>
 
         <!-- FEATURE 3: BREAK COUNTDOWN CARD -->
         <div class="wellbeing-card">
