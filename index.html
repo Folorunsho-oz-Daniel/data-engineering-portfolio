@@ -28,10 +28,17 @@
 
         /* 3. THE CONTAINER: Centering our content neatly */
         .main-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 0 20px;
+            max-width: 1000px; 
+            margin: 40px auto; 
+            padding: 0 20px; 
+            display: grid; 
+            grid-template-columns: 1fr 350px; 
+            gap: 20px; 
+
         }
+        @media (max-width: 768px) {
+    .main-container { grid-template-columns: 1fr; }
+}
 
         /* 4. THE CARD: Making a clean, modern white box */
         .wellbeing-card { 
@@ -94,6 +101,21 @@
     <main class="main-container">
         <div class="wellbeing-card"> 
 
+
+            <!-- NEW FEATURE: SIDEBAR COLUMN (Left or Right side) -->
+        <div class="wellbeing-sidebar">
+            <div class="wellbeing-card">
+                <h3>Staff Support Hub</h3>
+                <p style="color: #4c6272; font-size: 14px;">
+                    Remember to take micro-breaks, look out for your colleagues, and utilize the trust's psychological support helpline if needed. You are doing an incredible job.
+                </p>
+                
+                <!-- This is your image placeholder -->
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=500&q=80" 
+                     alt="NHS Support" 
+                     style="width: 100%; border-radius: 4px; margin-top: 10px;">
+            </div>
+        </div>
             <!-- FEATURE 1: SHIFT TRACKER CARD -->
         <div class="wellbeing-card">
             <h2>Shift Tracker</h2>
