@@ -1,4 +1,11 @@
+# ==============================================================================
+# STAGE 1: RAW DATA INGESTION (EXTRACT) - PYTHON VERSION
+# ==============================================================================
 import datetime
+
+# Simulating the exact same raw data dump from the hospital lab analyzer machine.
+# Python uses a list [] of dictionaries {} to hold these records natively.
+
 raw_lab_dump = [
     { "patientId": "PT-0921", "testDate": "2026-07-10", "marker": "HEMOGLOBIN", "resultValue": "11.2", "unit": "g/dL" },
     { "patientId": "PT-1442", "testDate": "11/07/2026", "marker": "platelets", "resultValue": "250", "unit": "x10^9/L" },
@@ -7,6 +14,7 @@ raw_lab_dump = [
     { "patientId": "PT-5521", "testDate": "2026-07-13", "marker": "PLATELETS", "resultValue": "85", "unit": "x10^9/L" }
 ]
 
+# In Python, we calculate lengths using the len() function and format strings with 'f-strings'
 total_records = len(raw_lab_dump)
 print(f"🚀 Extraction Layer: Successfully ingested {total_records} raw records via Python.")
 
