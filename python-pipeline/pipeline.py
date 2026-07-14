@@ -81,3 +81,53 @@ clean_warehouse_data = transform_lab_data(raw_lab_dump)
 print("\n📊 STAGE 2 TRANSFORMATION COMPLETE. Preview of clean dataset:")
 for record in clean_warehouse_data:
     print(record)
+
+    # ==============================================================================
+# STAGE 3: DATA WAREHOUSE LOAD & METRICS AGGREGATION - PYTHON VERSION
+# ==============================================================================
+
+# 1. Simulating Loading into a Data Warehouse Staging Table
+def load_to_data_warehouse(cleaned_records):
+    print("\n📦 Load Layer: Initializing data aggregation and warehouse load...")
+    
+    # In a real enterprise system, we would insert these rows into PostgreSQL, BigQuery, or Snowflake.
+    # Here we confirm the exact row schema count being loaded.
+    record_count = len(cleaned_records)
+    print(f"✅ Data Warehouse Load Complete! {record_count} production metrics saved.")
+    return True
+
+
+# 2. Aggregating Operational Performance Metrics
+# We want to know how many tests were normal, low, or high to flag system anomalies.
+def generate_metrics_report(cleaned_records):
+    print("\n📌 PIPELINE OPERATIONS METRICS REPORT:")
+    
+    # Initialize our accumulator dictionary
+    metrics_summary = {
+        "TOTAL_PROCESSED_OK": 0,
+        "NORMAL_COUNT": 0,
+        "CRITICAL_LOW_COUNT": 0,
+        "CRITICAL_HIGH_COUNT": 0
+    }
+    
+    # Loop and aggregate (like a SQL GROUP BY operation)
+    for record in cleaned_records:
+        metrics_summary["TOTAL_PROCESSED_OK"] += 1
+        
+        status = record["status_flag"]
+        if status == "NORMAL":
+            metrics_summary["NORMAL_COUNT"] += 1
+        elif status == "LOW":
+            metrics_summary["CRITICAL_LOW_COUNT"] += 1
+        elif status == "HIGH":
+            metrics_summary["CRITICAL_HIGH_COUNT"] += 1
+            
+    return metrics_summary
+
+
+# Execute the final Loading and Aggregation Steps
+load_success = load_to_data_warehouse(clean_warehouse_data)
+
+if load_success:
+    summary_report = generate_metrics_report(clean_warehouse_data)
+    print(summary_report)
