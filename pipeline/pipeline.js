@@ -76,3 +76,31 @@ const cleanWarehouseData = transformLabData(rawLabDump);
 
 console.log("📊 STAGE 3: LOAD LAYER (Structured Data Preview):");
 console.table(cleanWarehouseData);
+function loadAndAggregateData(processedData) {
+    console.log("💾 Load Layer: Initializing data aggregation and warehouse load...");
+
+    // We will build a compressed database summary object to track pipeline performance
+    const warehouseSummary = {
+        totalRecordsLoaded: processedData.length,
+        criticalAlertsFlagged: 0,
+        normalRecordsLoaded: 0,
+        loadTimestamp: new Date().toISOString()
+    };
+
+    // Aggregate statistics across the batch dataset
+    processedData.forEach(record => {
+        if (record.status_flag === "LOW" || record.status_flag === "HIGH") {
+            warehouseSummary.criticalAlertsFlagged++;
+        } else if (record.status_flag === "NORMAL") {
+            warehouseSummary.normalRecordsLoaded++;
+        }
+    });
+
+    console.log("✅ Data Warehouse Load Complete! Production metrics saved.");
+    return warehouseSummary;
+}
+
+// Execute the final stage
+const pipelineReport = loadAndAggregateData(cleanWarehouseData);
+console.log("📌 PIPELINE OPERATIONS METRICS REPORT:");
+console.dir(pipelineReport);
