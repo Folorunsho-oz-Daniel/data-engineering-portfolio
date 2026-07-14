@@ -30,13 +30,13 @@ This layer acts as the processing engine, applying computational logic to clean 
 ### 🛠️ Technical Stack & Framework Mapping
 To showcase my adaptability across the modern data stack, the core logical operations utilized in this project translate directly to standard production data tools:
 
-| ETL Phase | Implementation Logic (JavaScript) | Enterprise Python Equivalent (Pandas/PySpark) | Enterprise Data Warehouse (SQL) |
-| :--- | :--- | :--- | :--- |
-| **Ingestion** | Array-based object storage streams | `pd.read_json()` / Ingesting landing bucket blobs | Staging table rows (`STG_Lab_Data`) |
-| **String Cleaning** | `.toUpperCase().trim()` | `.str.upper().str.strip()` | `UPPER(TRIM(marker))` |
-| **Data Quality Gate**| `if (resultValue === null) return;` | `.dropna(subset=['resultValue'])` | `WHERE result_value IS NOT NULL` |
-| **Data Enrichment** | Range-bound conditional evaluations | Vectorized array mapping (`np.select`) | `CASE WHEN value > max THEN 'HIGH' ... END` |
-| **Aggregation** | `.forEach()` accumulator objects | `.groupby().count()` summary pipelines | `SELECT COUNT(*), status_flag GROUP BY...` |
+| ETL Phase | Implementation Logic (JavaScript) | Enterprise Python Equivalent (Pandas/PySpark) | Enterprise Data Warehouse (SQL) | Portfolio Implementation Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Ingestion** | Array-based object storage streams | `pd.read_json()` / Ingesting landing bucket blobs | Staging table rows (`staging_clinical_records`) | **Implemented** (JS, Python, SQL) |
+| **String Cleaning** | `.toUpperCase().trim()` | `.str.upper().str.strip()` | `UPPER(TRIM(marker))` | **Implemented** (JS, Python, SQL) |
+| **Data Quality Gate**| `if (resultValue === null) return;` | `.dropna(subset=['resultValue'])` | `WHERE result_value IS NOT NULL` | **Implemented** (JS, Python, SQL) |
+| **Data Enrichment** | Range-bound conditional evaluations | Vectorized array mapping (`np.select`) | `CASE WHEN value > max THEN 'HIGH' ... END` | **Implemented** (JS, Python, SQL) |
+| **Aggregation** | `.forEach()` accumulator objects | `.groupby().count()` summary pipelines | `SELECT COUNT(*), status_flag GROUP BY...` | **Implemented** (JS, Python, SQL) |
 
 ---
 
@@ -44,3 +44,26 @@ To showcase my adaptability across the modern data stack, the core logical opera
 * **Defensive Programming & Idempotency:** Designed error handling metrics that guarantee the pipeline can run continuously without crashing when encountering corrupt upstream records.
 * **Schema Design & Data Modeling:** Implemented a relational-style key-value lookup truth schema to handle complex multi-conditional lookups.
 * **Data Integrity Checks:** Programmed custom alerts to detect, isolate, and log anomalous data behavior.
+
+---
+
+## 📁 Project 3: Clinical Data Warehouse Analytics (SQL Layer)
+
+### 📊 Project Overview
+To complete the end-to-end data lifecycle, this layer models the cleaned diagnostic output from our ETL pipeline into a structured relational schema. It implements enterprise-grade SQL design patterns to store, clean, and analyze clinical patient trends.
+
+### ⚙️ SQL Database & Analytics Architecture
+
+#### 1. DDL Schema Definition & Data Constraints
+* **Data Integrity:** Implements robust column constraints (`NOT NULL`, primary keys) and strict lookup validation checks (`CHECK (status_flag IN ('NORMAL', 'LOW', 'HIGH'))`) to prevent invalid clinical flags from entering production tables.
+* **Relational Mapping:** Maps data types efficiently (`VARCHAR` for identifiers, `NUMERIC` with precise scale/precision for biological values) to optimize database storage and query speeds.
+
+#### 2. Advanced Analytical Engine
+* **Common Table Expressions (CTEs):** Organizes complex multi-stage calculations into highly readable, modular code structures (`WITH biomarker_stats AS...`).
+* **Window Functions & Variance Analysis:** Utilizes partitioned aggregations to calculate global clinical averages dynamically, computing real-time absolute variances (`observed_value - global_average`) for patients with critical biomarkers without expensive subqueries.
+
+---
+
+### 🚀 Key Engineering Skills Demonstrated
+* **Database Modeling (DDL):** Structured staging environments designed to ingest raw pipeline output.
+* **Analytical Queries (DML & CTEs):** Wrote non-trivial queries leveraging analytical window calculations to surface actionable patient insights for medical dashboards.
