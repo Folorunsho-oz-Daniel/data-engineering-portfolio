@@ -67,3 +67,33 @@ To complete the end-to-end data lifecycle, this layer models the cleaned diagnos
 ### 🚀 Key Engineering Skills Demonstrated
 * **Database Modeling (DDL):** Structured staging environments designed to ingest raw pipeline output.
 * **Analytical Queries (DML & CTEs):** Wrote non-trivial queries leveraging analytical window calculations to surface actionable patient insights for medical dashboards.
+
+---
+
+## 📁 Project 4: Cloud Data Warehouse Pipeline & Predictive BI Hub (Supabase & Streamlit)
+
+### 📊 Project Overview
+To close the loop on the data architecture lifecycle, this layer implements an advanced live operational infrastructure. It migrates clinical data out of localized environments, syncs it up to a live managed cloud data warehouse, and exposes the data via an interactive business intelligence interface featuring predictive risk triage stratification.
+
+### ⚙️ Pipeline Architecture & Dashboard Engine
+
+1. **Cloud Data Warehouse Migration Layer (Supabase)**
+   * **IPv4 Pooler Routing Integration:** Configured a high-performance transaction-mode pooler bridge (`aws-0-eu-west-1.pooler.supabase.com:6543`) to completely bypass traditional local network IPv6 handshake limitations, securing an industrial-grade, persistent connection up to a cloud PostgreSQL instance.
+   * **Secure Credential Isolation:** Orchestrated decoupled structural configurations utilizing `.env` management to protect production tokens from source control exposures.
+
+2. **Predictive Analytics & Core Transformation Engine**
+   * **Algorithmic Case Allocation:** Built an inline clinical heuristic mapping engine that automatically segments incoming patient queues into *Stable*, *Elevated Warning*, and *Critical Action Required* buckets to maximize healthcare resources.
+   * **Data Ingestion Cache Controls:** Applied declarative application memory caching (`@st.cache_data`) wrapped with a 3600-second TTL to reduce query overhead costs and maximize dashboard response speeds.
+
+3. **Front-End Business Intelligence Interface (Streamlit & Plotly)**
+   * **Dynamic Multi-Select Filters:** Engineered reactive control sidebars allowing real-time, multi-dimensional rendering across specific age brackets and medical facilities.
+   * **Interface Layout Engineering:** Handled small-viewport formatting constraints by injecting HTML line breaks (`<br>`) straight into active data matrices to force balanced layout structures under visual bar charts.
+
+---
+
+### 🏃‍♂️ Running the Cloud Dashboard Locally
+
+1. Create a `.env` file in your root folder:
+   ```env
+   SUPABASE_DB_PASSWORD=your_secure_password
+   
