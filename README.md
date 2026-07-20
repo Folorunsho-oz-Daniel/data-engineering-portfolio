@@ -96,4 +96,26 @@ To close the loop on the data architecture lifecycle, this layer implements an a
 1. Create a `.env` file in your root folder:
    ```env
    SUPABASE_DB_PASSWORD=your_secure_password
-   
+
+---
+
+## 📊 Summary: Technical Stack & Framework Mapping
+
+To showcase my adaptability across the modern data stack, the core logical operations utilized in this portfolio translate directly to standard production data tools:
+
+| ETL / Architecture Phase | Implementation Logic (Portfolio Engine) | Enterprise Python Equivalent (Pandas/PySpark) | Enterprise Data Warehouse / Cloud Layer (SQL / Infra) | Portfolio Implementation Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Ingestion** | Array-based object storage streams | `pd.read_json()` / Ingesting landing bucket blobs | Staging table rows (`staging_clinical_records`) | **Implemented (JS, Python, SQL)** |
+| **String Cleaning** | `.toUpperCase().trim()` | `.str.upper().str.strip()` | `UPPER(TRIM(marker))` | **Implemented (JS, Python, SQL)** |
+| **Data Quality Gate** | `if (resultValue === null) return;` | `.dropna(subset=['resultValue'])` | `WHERE result_value IS NOT NULL` | **Implemented (JS, Python, SQL)** |
+| **Data Enrichment & Risk Triage** | Algorithmic range-bound evaluations | Vectorized array mapping (`np.select`) | `CASE WHEN value > max THEN 'CRITICAL' ... END` | **Implemented (JS, Python, SQL)** |
+| **Aggregation** | `.forEach()` accumulator objects | `.groupby().count()` summary pipelines | `SELECT COUNT(*), status GROUP BY...` | **Implemented (JS, Python, SQL)** |
+| **Cloud Data Warehouse Routing** | Connection Pooler Routing & Port Configuration | `sqlalchemy.create_engine()` with connection pooling | Supabase Managed Cloud Postgres Instance (AWS-hosted) | **Implemented (Cloud Infra)** |
+| **State Caching & Performance Optimization** | Memory Cache Wrappers (`@st.cache_data`) | Memory-backed distributed caching (Redis / Memcached) | Materialized Views / Query Plan Indexes | **Implemented (Dashboard Layer)** |
+
+---
+
+### 🚀 Summary of Key Engineering Skills Demonstrated
+* **Database & Cloud Architecture:** Live Production Data Warehousing (Supabase Cloud PostgreSQL), Connection Pooler Optimization (bypassing IPv6 limits via transactional routing proxies), and Environment Variable Decoupling (`.env` isolation).
+* **Data Transformation & Analytics:** Algorithmic Clinical Case Allocation (triage predictive logic), Heuristic Cohort Segmentation, and Performance Tuning (Data Ingestion Caching Engines with TTL parameters).
+* **Business Intelligence & Interfaces:** Reactive Dashboard Development (Streamlit Framework), Interactive Layout Design (Plotly Chart Matrices), and Dynamic Multi-Select Operational Sidebars.
