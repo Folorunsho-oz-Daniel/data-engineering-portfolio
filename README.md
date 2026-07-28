@@ -8,6 +8,7 @@ Before building production data pipelines, an engineer must establish a repeatab
 Runtime Sandbox Isolation: Configured an isolated development workspace using an underlying Linux development image container to abstract local operating system conflicts.
 Environment Variable Security: Implemented decoupled key security using .gitignore patterns to prevent API keys and database credentials from accidentally being committed to public repositories.
 Package Management Blueprinting: Created configuration files to track system-level packages, ensuring identical environments can be deployed across a team instantly.
+
 📁 Project 2: Clinical Data ETL Pipeline (Automated Test Result Interpreter)
 🏥 Project Overview
 
@@ -42,6 +43,7 @@ Aggregation	.forEach() accumulator objects	.groupby().count() summary pipelines	
 Defensive Programming & Idempotency: Designed error handling metrics that guarantee the pipeline can run continuously without crashing when encountering corrupt upstream records.
 Schema Design & Data Modeling: Implemented a relational-style key-value lookup truth schema to handle complex multi-conditional lookups.
 Data Integrity Checks: Programmed custom alerts to detect, isolate, and log anomalous data behavior.
+
 📁 Project 3: Clinical Data Warehouse Analytics (SQL Layer)
 📊 Project Overview
 
@@ -85,6 +87,7 @@ Each category links to one real, verified resource (NHS, Postpartum Support Inte
 Dashboard — Streamlit, deployed on Streamlit Community Cloud:
 
 Live, publicly hosted (not just runnable locally) — trend chart by category over time, category breakdown, free-text search, source filter (real vs. synthetic), and a resource panel.
+
 ⚠️ Known limitations (documented honestly, not hidden)
 A fully live, continuously-incrementing source (Reddit API, via an idempotent watermark-based ingestion job) was designed and built — schema, dedup logic, and ingestion script are all in the repo — but blocked by Reddit's account-verification flow during a live build session. The raw_reddit_posts and pipeline_state tables are ready for it.
 MedQuAD questions don't include original ask-dates, so they're stamped with ingestion date rather than a real timestamp — visible as a single-week spike in the trend chart rather than smoothed real-world distribution.
